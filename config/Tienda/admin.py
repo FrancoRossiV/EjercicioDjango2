@@ -8,14 +8,35 @@ from Tienda.models import Cliente
 from Tienda.models import Proveedor
 
 
+class ClienteAdmin(admin.ModelAdmin):
+	list_display = ('RUT', 'Nombre','Telefono')
 
+
+class ProductoAdmin(admin.ModelAdmin):
+	fieldsets = (
+		('Descripcion', {
+			'fields': ('Nombre',)
+			}),
+		('Variables',{
+			'fields': ('Precio', 'Stock')
+			})
+	)
+
+class ProveedorAdmin(admin.ModelAdmin):
+	list_display = ('RUT', 'Nombre','Telefono', 'Web', 'Direccion')
+	list_filter = ('Nombre', 'RUT')	
+
+
+class VentaAdmin(admin.ModelAdmin):
+    list_display = ('ID', 'NombreClien')
+    
 
 
 # Register your models here.
 admin.site.register(Categoria,)
-admin.site.register(Producto,)
+admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Detalle,)
-admin.site.register(Venta, )
+admin.site.register(Venta, VentaAdmin)
 admin.site.register(Direccion,)
-admin.site.register(Cliente,)
-admin.site.register(Proveedor,)
+admin.site.register(Cliente,ClienteAdmin)
+admin.site.register(Proveedor, ProveedorAdmin)
