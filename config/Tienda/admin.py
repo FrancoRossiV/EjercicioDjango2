@@ -52,12 +52,23 @@ class VentaAdmin(admin.ModelAdmin):
     valDesc.short_description = "Validar Descuento"
     
 
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ('Nombre', 'Descripcion',)    
+
+
+class DetalleAdmin(admin.ModelAdmin):
+    list_display = ('Cantidad', 'Producto',) 
+
+
+class DireccionAdmin(admin.ModelAdmin):
+    list_display = ('Calle', 'Numero', 'Ciudad', 'Comuna') 
+
 
 # Register your models here.
-admin.site.register(Categoria,)
+admin.site.register(Categoria, CategoriaAdmin)
 admin.site.register(Producto, ProductoAdmin)
-admin.site.register(Detalle,)
+admin.site.register(Detalle, DetalleAdmin)
 admin.site.register(Venta, VentaAdmin)
-admin.site.register(Direccion,)
+admin.site.register(Direccion,DireccionAdmin)
 admin.site.register(Cliente,ClienteAdmin)
 admin.site.register(Proveedor, ProveedorAdmin)
