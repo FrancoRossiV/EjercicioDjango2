@@ -9,26 +9,47 @@ from Tienda.models import Proveedor
 
 
 class ClienteAdmin(admin.ModelAdmin):
-	list_display = ('RUT', 'Nombre','Telefono')
+    search_fields = ['Nombre', ] 
+	
+    
+    list_display = ('RUT', 'Nombre','Telefono')
+    
+
+    
+ 
+
+
+class ProductoInline(admin.TabularInline):
+    model = Producto
 
 
 class ProductoAdmin(admin.ModelAdmin):
-	fieldsets = (
+    list_display = ('Nombre','Precio', 'Stock', 'Categoria', 'Proveedor')
+	
+    fieldsets = (
 		('Descripcion', {
 			'fields': ('Nombre',)
 			}),
 		('Variables',{
-			'fields': ('Precio', 'Stock')
+			'fields': ('Precio', 'Stock', 'Categoria', 'Proveedor')
 			})
 	)
 
-class ProveedorAdmin(admin.ModelAdmin):
-	list_display = ('RUT', 'Nombre','Telefono', 'Web', 'Direccion')
-	list_filter = ('Nombre', 'RUT')	
 
+class ProveedorAdmin(admin.ModelAdmin):
+    list_display = ('RUT', 'Nombre','Telefono', 'Web', 'Direccion')
+    inlines = [ProductoInline, ] 
+	
+    list_filter = ('Nombre', 'RUT')	
+    
 
 class VentaAdmin(admin.ModelAdmin):
-    list_display = ('ID', 'NombreClien')
+    list_display = ('ID', 'Descuento', 'Cliente')
+    actions = ['valDesc',]
+
+    def valDesc(self,request,queryset):
+        return queryset.update(Descuento = True)
+    valDesc.short_description = "Validar Descuento"
     
 
 

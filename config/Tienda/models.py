@@ -15,8 +15,9 @@ class Proveedor(models.Model):
     RUT = models.AutoField(primary_key=True)
     Nombre = models.CharField(max_length=50)
     Telefono = models.CharField(max_length=50)
-    Direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE)
+    Direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE, default = None)
     Web = models.CharField(max_length=50)
+    
 
     def __str__(self):
         return "Proveedor: " + str(self.RUT) + " " + str(self.Nombre) + " " + str(self.Telefono) + " " + str(self.Direccion) + " " + str(self.Web)   
@@ -35,8 +36,8 @@ class Producto(models.Model):
     Nombre = models.CharField(max_length=50)
     Precio = models.IntegerField()
     Stock = models.IntegerField()
-    Categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    Proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    Categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, default = None)
+    Proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, default = None)
 
     def __str__(self):
         return "Producto: " + str(self.ID) + " " + str(self.Nombre) + " " + str(self.Precio) + " " + str(self.Stock) + " " + str(self.Categoria) + " " + str(self.Proveedor)
@@ -44,7 +45,7 @@ class Producto(models.Model):
 
 class Detalle(models.Model):
     Cantidad = models.IntegerField()
-    Producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    Producto = models.ForeignKey(Producto, on_delete=models.CASCADE, default = None)
 
     def __str__(self):
         return "Detalle: " + str(self.Cantidad) + " " + str(self.Producto)
@@ -53,22 +54,22 @@ class Cliente(models.Model):
     RUT = models.AutoField(primary_key=True)
     Nombre = models.CharField(max_length=50)
     Telefono = models.CharField(max_length=50)
-    Direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE)
+    Direccion = models.ForeignKey(Direccion, on_delete=models.CASCADE, default = None)
 
 
     def __str__(self):
-        return "Cliente: " + str(self.RUT) + " " + str(self.Nombre) + " " + str(self.Telefono) + " " + str(self.Direccion)   
+        return "Cliente: " + (self.Nombre)   
 
 class Venta(models.Model):
     ID = models.AutoField(primary_key=True)
     Fecha = models.CharField(max_length=50)
-    Descuento = models.IntegerField()
+    Descuento = models.BooleanField()
     MontoFinal = models.IntegerField()
-    Detalle = models.ForeignKey(Detalle, on_delete=models.CASCADE)
-    Cliente = models.ForeignKey(Direccion, on_delete=models.CASCADE)
+    Detalle = models.ForeignKey(Detalle, on_delete=models.CASCADE, default = None)
+    Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, default = None)
             
-    def NombreClien(self):
-        return Cliente.Nombre
+
+
 
 
     def __str__(self):
