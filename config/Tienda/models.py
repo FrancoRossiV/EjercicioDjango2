@@ -56,6 +56,7 @@ class Venta(models.Model):
     Descuento = models.IntegerField()
     MontoFinal = models.IntegerField()
     Detalle = models.ForeignKey(Detalle, on_delete=models.CASCADE)
+            
 
     def __str__(self):
         return "Venta: " + str(self.ID) + " " + str(self.Fecha) + " " + str(self.Descuento) + " " + str(self.MontoFinal) + " " + str(self.Detalle)        
