@@ -62,7 +62,7 @@ class Cliente(models.Model):
 
 class Venta(models.Model):
     ID = models.AutoField(primary_key=True)
-    Fecha = models.CharField(max_length=50)
+    Fecha = models.DateField()
     Descuento = models.BooleanField()
     MontoFinal = models.IntegerField( default = 0, editable = False)
     Detalle = models.ForeignKey(Detalle, on_delete=models.CASCADE, default = None)
