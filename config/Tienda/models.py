@@ -66,6 +66,7 @@ class Venta(models.Model):
     Descuento = models.BooleanField()
     MontoFinal = models.IntegerField( default = 0, editable = False)
     Detalle = models.ForeignKey(Detalle, on_delete=models.CASCADE, default = None)
+    
     Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, default = None)
 
        
