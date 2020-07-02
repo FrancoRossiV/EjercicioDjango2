@@ -44,7 +44,7 @@ class ProveedorAdmin(admin.ModelAdmin):
     
 
 class VentaAdmin(admin.ModelAdmin):
-    list_display = ('ID', 'Descuento', 'Cliente')
+    list_display = ('ID', 'Descuento', 'Cliente', 'MontFin')
     actions = ['valDesc',]
 
     def valDesc(self,request,queryset):

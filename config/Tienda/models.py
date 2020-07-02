@@ -64,12 +64,19 @@ class Venta(models.Model):
     ID = models.AutoField(primary_key=True)
     Fecha = models.CharField(max_length=50)
     Descuento = models.BooleanField()
-    MontoFinal = models.IntegerField()
+    MontoFinal = models.IntegerField( default = 0, editable = False)
     Detalle = models.ForeignKey(Detalle, on_delete=models.CASCADE, default = None)
     Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, default = None)
-            
 
-
+       
+    def MontFin(self):
+        
+        if (self.Descuento == True):
+            return '$' + str(self.Detalle.Producto.Precio * self.Detalle.Cantidad * 0.1)
+        else:
+            return '$' + str(self.Detalle.Producto.Precio * self.Detalle.Cantidad)
+        self.MontoFinal = MontFin
+    MontFin.short_description = 'Monto Final'  
 
 
     def __str__(self):
